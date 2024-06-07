@@ -17,7 +17,7 @@ test('deve poder cadastrar tarefa com sucesso', async ({ page, request }) => {
     await page.click('css=button >> text=Create')
 
     // Então essa tarefa deve ser exibida
-    const target = page.getByTestId('task-item')
-    await expect(target).toHaveText(nomeTarefa)
+    const target = page.locator(`css=.task-item p >> text=${nomeTarefa}`)
+    await expect(target).toBeVisible()
 
 })
