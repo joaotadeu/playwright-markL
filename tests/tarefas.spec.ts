@@ -1,15 +1,6 @@
-import { test, expect, APIRequestContext } from '@playwright/test'
+import { test, expect } from '@playwright/test'
 import { tarefaModel } from './fixtures/tarefa.model'
-
-async function deleteTarefaByHelper(request: APIRequestContext, nomeTarefa: String){
-    await request.delete('http://localhost:3333/helper/tasks/' + nomeTarefa)
-
-}
-
-async function postTarefa(request: APIRequestContext, tarefa: tarefaModel) {
-    const novaTarefa = await request.post('http://localhost:3333/tasks/', { data: tarefa })
-    expect(novaTarefa.ok()).toBeTruthy()
-}
+import { deleteTarefaByHelper, postTarefa } from './support/helpers'
 
 test('deve poder cadastrar tarefa com sucesso', async ({ page, request }) => {
 
