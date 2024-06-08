@@ -6,7 +6,7 @@ import { deleteTarefaByHelper, postTarefa } from './support/helpers'
 test.describe('Gestão de Tarefas', () => {
 
     test.beforeEach(async ({ page }) => {
-        // Coloque aqui as configurações ou pré-condições comuns a todos os testes deste grupo
+        // configurações ou pré-condições comuns a todos os testes deste grupo
         await page.goto('http://localhost:8080/')
         await expect(page).toHaveTitle('Gerencie suas tarefas com Mark L')
     })
