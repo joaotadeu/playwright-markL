@@ -27,4 +27,9 @@ export class TarefasPage {
         const target = this.page.locator(`css=.task-item p >> text=${tarefaName}`)
         await expect(target).toBeVisible()
     }
+
+    async validaToast(text: string){
+        const target = this.page.locator('.swal2-html-container')
+        await expect(target).toHaveText(text)
+    }
 }

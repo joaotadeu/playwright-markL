@@ -25,17 +25,13 @@ test.describe('Gestão de Tarefas', () => {
             is_done: false
         }
 
+        const tarefasPage = new TarefasPage(page)
+
         await deleteTarefaByHelper(request, tarefa.name)
         await postTarefa(request, tarefa)
 
-        await page.goto('http://localhost:8080/')
-        await expect(page).toHaveTitle('Gerencie suas tarefas com Mark L')
-
-        const inputNewTask = page.locator('input[class*=InputNewTask]')
-        await inputNewTask.fill(tarefa.name)
-        await page.click('css=button >> text=Create')
-
-        const target = page.locator('.swal2-html-container')
-        await expect(target).toHaveText('Task already exists!')
+        await tarefasPage.homePage()
+        await tarefasPage.criarTarefa(tarefa)
+        await tarefasPage.validaToast('Task already exists!')
     })
 })
