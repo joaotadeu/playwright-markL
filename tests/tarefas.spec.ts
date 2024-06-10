@@ -29,7 +29,7 @@ test.describe('Gestão de Tarefas', () => {
         await tarefasPage.validaToast('Task already exists!')
     })
 
-    test('não deve permitir criar tarefa sem preencher a descrição', async ({page}) => {
+    test('não deve permitir criar tarefa sem preencher a descrição', async ({ page }) => {
         const tarefa = dados.campo_obrigatorio as tarefaModel
         const tarefasPage = new TarefasPage(page)
 
@@ -37,5 +37,17 @@ test.describe('Gestão de Tarefas', () => {
         await tarefasPage.criarTarefa(tarefa)
         await tarefasPage.validaMensagem('This is a required field')
 
+    })
+
+    test('deve concluir uma tarefa', async ({page, request}) => {
+        const tarefa = dados.atualizacao_tarefa as tarefaModel
+        const tarefasPage: TarefasPage = new TarefasPage(page)
+       
+        await deleteTarefaByHelper(request, tarefa.name)
+        await postTarefa(request, tarefa)
+
+        await tarefasPage.homePage()
+        await tarefasPage.validaToggle(tarefa.name)
+        await tarefasPage.deveEstaConcluido(tarefa.name)
     })
 })

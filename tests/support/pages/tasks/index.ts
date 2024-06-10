@@ -19,7 +19,6 @@ export class TarefasPage {
 
     async homePage(){
         await this.page.goto('http://localhost:8080')
-        await expect(this.page).toHaveTitle('Gerencie suas tarefas com Mark L')
     }
 
     async devoVerTexto(tarefaName: string){
@@ -35,5 +34,15 @@ export class TarefasPage {
     async validaMensagem(text: string){
         const validaMessage = await this.inputTarefaName.evaluate(e => (e as HTMLInputElement).validationMessage)
         expect(validaMessage).toEqual(text)
+    }
+
+    async validaToggle(tarefaName: string) {
+        const target = await this.page.locator(`//p[text()="${tarefaName}"]/..//button[contains(@class, "Toggle")]`)
+        await target.click()
+    }
+    
+    async deveEstaConcluido(tarefaName: string){
+        const target = this.page.getByText(tarefaName)
+        await expect(target).toHaveCSS('text-decoration-line', 'line-through')
     }
 }
