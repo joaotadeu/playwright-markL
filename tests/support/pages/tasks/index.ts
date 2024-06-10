@@ -18,7 +18,7 @@ export class TarefasPage {
     }
 
     async homePage(){
-        await this.page.goto('http://localhost:8080')
+        await this.page.goto('/')
     }
 
     async devoVerTexto(tarefaName: string){
