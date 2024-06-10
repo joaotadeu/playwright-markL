@@ -16,9 +16,9 @@ test.describe('Gestão de Tarefas', () => {
         const tarefa = dados.cadastro_sucesso as tarefaModel
 
         await deleteTarefaByHelper(request, tarefa.name)
-        await tarefasPage.homePage() // Use `await` para garantir que a navegação seja concluída
-        await tarefasPage.criarTarefa(tarefa) // Use `await` para garantir que a tarefa seja criada
-        await tarefasPage.devoVerTexto(tarefa.name) // Use `await` para verificar a visibilidade do texto
+        await tarefasPage.homePage() 
+        await tarefasPage.criarTarefa(tarefa)
+        await tarefasPage.devoVerTexto(tarefa.name)
     })
 
     test('não deve permitir tarefa duplicada', async ({ page, request }) => {
