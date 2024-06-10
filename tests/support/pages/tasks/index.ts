@@ -1,18 +1,17 @@
-import { Page, expect } from "@playwright/test"
+import { Locator, Page, expect } from "@playwright/test"
 import { tarefaModel } from "../../../fixtures/tarefa.model"
 
 export class TarefasPage {
     readonly page: Page
+    readonly inputTarefaName: Locator
 
     constructor(page: Page) {
         this.page = page
+        this.inputTarefaName = page.locator('input[class*=InputNewTask]')
     }
 
     async criarTarefa(tarefa: tarefaModel) {
-        const inputNewTask = this.page.locator('input[class*=InputNewTask]')
-        // Verifica se o input está visível antes de interagir
-        await expect(inputNewTask).toBeVisible()
-        await inputNewTask.fill(tarefa.name)
+        await this.inputTarefaName.fill(tarefa.name)
         const createButton = this.page.locator('css=button >> text=Create')
         await expect(createButton).toBeVisible() // Verifica se o botão está visível antes de clicar
         await createButton.click()
@@ -34,8 +33,7 @@ export class TarefasPage {
     }
 
     async validaMensagem(text: string){
-        const inputTarefaName = this.page.locator('input[class*=InputNewTask]')
-        const validaMessage = await inputTarefaName.evaluate(e => (e as HTMLInputElement).validationMessage)
+        const validaMessage = await this.inputTarefaName.evaluate(e => (e as HTMLInputElement).validationMessage)
         expect(validaMessage).toEqual(text)
     }
 }

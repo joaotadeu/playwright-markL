@@ -1,0 +1,15 @@
+{
+    "cadastro_sucesso": {
+        "name": "Ler um livro de TypeScript",
+        "is_done": false
+    },
+    "cadastro_incorreto": {
+        "name": "Comprar ketchup",
+        "is_done": false
+
+    },
+    "campo_obrigatorio": {
+        "name": "",
+        "is_done": false
+    }
+}

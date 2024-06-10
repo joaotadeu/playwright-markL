@@ -2,15 +2,12 @@ import { test, expect } from '@playwright/test'
 import { tarefaModel } from './fixtures/tarefa.model'
 import { deleteTarefaByHelper, postTarefa } from './support/helpers'
 import { TarefasPage } from './support/pages/tasks'
+import dados from './fixtures/tarefas.json'
 
 test.describe('Gestão de Tarefas', () => {
 
     test('deve poder cadastrar tarefa com sucesso', async ({ page, request }) => {
-        const tarefa: tarefaModel = {
-            name: 'Ler um livro de TypeScript',
-            is_done: false
-        }
-
+        const tarefa = dados.cadastro_sucesso as tarefaModel
         const tarefasPage = new TarefasPage(page)
 
         await deleteTarefaByHelper(request, tarefa.name)
@@ -20,10 +17,7 @@ test.describe('Gestão de Tarefas', () => {
     })
 
     test('não deve permitir tarefa duplicada', async ({ page, request }) => {
-        const tarefa: tarefaModel = {
-            name: 'Comprar ketchup',
-            is_done: false
-        }
+        const tarefa = dados.cadastro_incorreto as tarefaModel
 
         const tarefasPage = new TarefasPage(page)
 
@@ -36,10 +30,7 @@ test.describe('Gestão de Tarefas', () => {
     })
 
     test('não deve permitir criar tarefa sem preencher a descrição', async ({page}) => {
-        const tarefa: tarefaModel = {
-            name: '',
-            is_done: false
-        }
+        const tarefa = dados.campo_obrigatorio as tarefaModel
         const tarefasPage = new TarefasPage(page)
 
         await tarefasPage.homePage()
