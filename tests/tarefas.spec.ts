@@ -44,10 +44,7 @@ test.describe('Gestão de Tarefas', () => {
 
         await tarefasPage.homePage()
         await tarefasPage.criarTarefa(tarefa)
-
-        const inputTarefaName = page.locator('input[class*=InputNewTask]')
-        const validaMessage = await inputTarefaName.evaluate(e => (e as HTMLInputElement).validationMessage)
-        expect(validaMessage).toEqual('This is a required field')
+        await tarefasPage.validaMensagem('This is a required field')
 
     })
 })

@@ -32,4 +32,10 @@ export class TarefasPage {
         const target = this.page.locator('.swal2-html-container')
         await expect(target).toHaveText(text)
     }
+
+    async validaMensagem(text: string){
+        const inputTarefaName = this.page.locator('input[class*=InputNewTask]')
+        const validaMessage = await inputTarefaName.evaluate(e => (e as HTMLInputElement).validationMessage)
+        expect(validaMessage).toEqual(text)
+    }
 }
