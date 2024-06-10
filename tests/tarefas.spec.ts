@@ -6,9 +6,14 @@ import dados from './fixtures/tarefas.json'
 
 test.describe('Gestão de Tarefas', () => {
 
+    let tarefasPage: TarefasPage
+
+    test.beforeEach(({ page }) => {
+        tarefasPage = new TarefasPage(page)
+    })
+
     test('deve poder cadastrar tarefa com sucesso', async ({ page, request }) => {
         const tarefa = dados.cadastro_sucesso as tarefaModel
-        const tarefasPage = new TarefasPage(page)
 
         await deleteTarefaByHelper(request, tarefa.name)
         await tarefasPage.homePage() // Use `await` para garantir que a navegação seja concluída
@@ -18,8 +23,6 @@ test.describe('Gestão de Tarefas', () => {
 
     test('não deve permitir tarefa duplicada', async ({ page, request }) => {
         const tarefa = dados.cadastro_incorreto as tarefaModel
-
-        const tarefasPage = new TarefasPage(page)
 
         await deleteTarefaByHelper(request, tarefa.name)
         await postTarefa(request, tarefa)
@@ -31,7 +34,6 @@ test.describe('Gestão de Tarefas', () => {
 
     test('não deve permitir criar tarefa sem preencher a descrição', async ({ page }) => {
         const tarefa = dados.campo_obrigatorio as tarefaModel
-        const tarefasPage = new TarefasPage(page)
 
         await tarefasPage.homePage()
         await tarefasPage.criarTarefa(tarefa)
@@ -41,7 +43,6 @@ test.describe('Gestão de Tarefas', () => {
 
     test('deve concluir uma tarefa', async ({ page, request }) => {
         const tarefa = dados.atualizacao_tarefa as tarefaModel
-        const tarefasPage: TarefasPage = new TarefasPage(page)
 
         await deleteTarefaByHelper(request, tarefa.name)
         await postTarefa(request, tarefa)
@@ -53,7 +54,6 @@ test.describe('Gestão de Tarefas', () => {
 
     test('exlusão de tarefa', async ({ page, request }) => {
         const tarefa = dados.atualizacao_tarefa as tarefaModel
-        const tarefasPage: TarefasPage = new TarefasPage(page)
 
         await deleteTarefaByHelper(request, tarefa.name)
         await postTarefa(request, tarefa)
