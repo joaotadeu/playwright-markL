@@ -34,4 +34,20 @@ test.describe('Gestão de Tarefas', () => {
         await tarefasPage.criarTarefa(tarefa)
         await tarefasPage.validaToast('Task already exists!')
     })
+
+    test('não deve permitir criar tarefa sem preencher a descrição', async ({page}) => {
+        const tarefa: tarefaModel = {
+            name: '',
+            is_done: false
+        }
+        const tarefasPage = new TarefasPage(page)
+
+        await tarefasPage.homePage()
+        await tarefasPage.criarTarefa(tarefa)
+
+        const inputTarefaName = page.locator('input[class*=InputNewTask]')
+        const validaMessage = await inputTarefaName.evaluate(e => (e as HTMLInputElement).validationMessage)
+        expect(validaMessage).toEqual('This is a required field')
+
+    })
 })
