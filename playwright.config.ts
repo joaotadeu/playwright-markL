@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+import { off } from 'process';
 require ('dotenv').config()
 /**
  * Read environment variables from file.
@@ -26,7 +27,7 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: process.env.BASE_URL,
-    screenshot: 'off',
+    screenshot: 'only-on-failure',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -35,10 +36,10 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
-    // {
-    //   name: 'chromium',
-    //   use: { ...devices['Desktop Chrome'] },
-    // },
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
 
     {
       name: 'firefox',
@@ -51,14 +52,14 @@ export default defineConfig({
     },
 
     /* Test against mobile viewports. */
-    {
-      name: 'Mobile Chrome',
-      use: { ...devices['Pixel 5'] },
-    },
-    {
-      name: 'Mobile Safari',
-      use: { ...devices['iPhone 12'] },
-    },
+    // {
+    //   name: 'Mobile Chrome',
+    //   use: { ...devices['Pixel 5'] },
+    // },
+    // {
+    //   name: 'Mobile Safari',
+    //   use: { ...devices['iPhone 12'] },
+    // },
 
     /* Test against branded browsers. */
     // {
