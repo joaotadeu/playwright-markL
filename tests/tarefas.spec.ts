@@ -39,15 +39,29 @@ test.describe('Gestão de Tarefas', () => {
 
     })
 
-    test('deve concluir uma tarefa', async ({page, request}) => {
+    test('deve concluir uma tarefa', async ({ page, request }) => {
         const tarefa = dados.atualizacao_tarefa as tarefaModel
         const tarefasPage: TarefasPage = new TarefasPage(page)
-       
+
         await deleteTarefaByHelper(request, tarefa.name)
         await postTarefa(request, tarefa)
 
         await tarefasPage.homePage()
         await tarefasPage.validaToggle(tarefa.name)
         await tarefasPage.deveEstaConcluido(tarefa.name)
+    })
+
+    test('exlusão de tarefa', async ({ page, request }) => {
+        const tarefa = dados.atualizacao_tarefa as tarefaModel
+        const tarefasPage: TarefasPage = new TarefasPage(page)
+
+        await deleteTarefaByHelper(request, tarefa.name)
+        await postTarefa(request, tarefa)
+
+        await tarefasPage.homePage()
+        await tarefasPage.removeTarefa(tarefa.name)
+        await tarefasPage.deveSerExcluido(tarefa.name)
+
+
     })
 })

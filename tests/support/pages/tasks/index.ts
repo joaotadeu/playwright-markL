@@ -45,4 +45,14 @@ export class TarefasPage {
         const target = this.page.getByText(tarefaName)
         await expect(target).toHaveCSS('text-decoration-line', 'line-through')
     }
+
+    async removeTarefa(tarefaName: string){
+        const target = await this.page.locator(`//p[text()="${tarefaName}"]/..//button[contains(@class, "Delete")]`)
+        await target.click()
+    }
+
+    async deveSerExcluido(tarefaName: string){
+        const target = this.page.locator(`css=.task-item p >> text=${tarefaName}`)
+        await expect(target).not.toBeVisible()
+    }
 }

@@ -15,5 +15,9 @@
     "atualizacao_tarefa": {
         "name": "Pagar cartão de credito",
         "is_done": false
+    },
+    "exclusao_tarefa": {
+        "name": "Estudar Java",
+        "is_done": false
     }
 }
